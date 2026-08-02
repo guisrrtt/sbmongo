@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.guiserretti.sbmongo.domain.Post;
 import com.guiserretti.sbmongo.domain.User;
 import com.guiserretti.sbmongo.dto.AuthorDTO;
+import com.guiserretti.sbmongo.dto.CommentDTO;
 import com.guiserretti.sbmongo.repository.PostRepository;
 import com.guiserretti.sbmongo.repository.UserRepository;
 
@@ -40,6 +41,13 @@ public class Instantiation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("21/07/2026"), "Férias!", "Vou passar duas semanas em Tamandaré, abraços!", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("25/07/2026"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("Boas férias, Maria!", sdf.parse("21/07/2026"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("Aproveite!", sdf.parse("21/07/2026"), new AuthorDTO(bob));
+		CommentDTO c3 = new CommentDTO("Bom dia para nós!", sdf.parse("25/07/2026"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
